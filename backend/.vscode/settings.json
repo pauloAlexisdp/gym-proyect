@@ -1,0 +1,31 @@
+{
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "eslint.validate": [
+        "typescript",
+        "typescriptreact",
+        "javascript"
+    ],
+    "eslint.enable": true,
+    "eslint.run": "onType",
+    "eslint.autoFixOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[prisma]": {
+        "editor.defaultFormatter": "Prisma.prisma",
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2
+    }
+}
