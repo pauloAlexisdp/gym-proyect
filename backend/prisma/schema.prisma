@@ -44,14 +44,14 @@ model User {
 }
 
 model Exercise {
-  id Int @id @default(autoincrement())
+  id  Int @id @default(autoincrement())
   name String @unique
   muscle Muscle
   muscleGroup MuscleGroup
   description String
-  videoTutorial String @default('')
+  videoTutorial String @default("")
   isActive Boolean @default(true)
-  userExercises UserExercise[] // Relación con usuarios que hacen este ejercicio
+  userExercises UserExercise[] 
 }
 
 model UserExercise {
