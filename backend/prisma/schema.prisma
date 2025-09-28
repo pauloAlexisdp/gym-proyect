@@ -1,15 +1,77 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Muscle {
+  PECTORAL
+  DORSAL
+  BICEPS
+  TRICEPS
+  HOMBRO
+  CUADRICEPS
+  FEMORALES
+  GLUTEOS
+  ABDOMINALES
+  GASTRONECMIO
+}
+
+enum MuscleGroup {
+  PECHO_HOMBRO
+  PIERNAS
+  ESPALDA_BICEP
+}
+
+
+model User {
+  id  Int @id @default(autoincrement())
+  name  String 
+  lastname String
+  email String @unique
+  password String
+  isActive Boolean @default(true)
+  userExercises UserExercise[]
+  role  Role  @default(USER)
+}
+
+model Exercise {
+  id Int @id @default(autoincrement())
+  name String @unique
+  muscle Muscle
+  muscleGroup MuscleGroup
+  description String
+  videoTutorial String @default('')
+  isActive Boolean @default(true)
+  userExercises UserExercise[] // Relación con usuarios que hacen este ejercicio
+}
+
+model UserExercise {
+  id  Int @id @default(autoincrement())
+  userId Int
+  exerciseId Int
+  reps Int
+  weight Float
+  user User @relation(fields: [userId], references: [id])
+  exercise Exercise @relation(fields: [exerciseId], references: [id])
+  history UserExerciseHistory[]
+  
+  @@unique([userId, exerciseId]) 
+}
+
+model UserExerciseHistory {
+  id Int @id @default(autoincrement())
+  userExerciseId Int
+  reps Int
+  weight Float
+  date DateTime @default(now())
+  userExercise UserExercise @relation(fields: [userExerciseId], references: [id])
 }
